@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   end
   def spotify
     spotify_user = RSpotify::User.new(request.env['omniauth.auth'])
-    
+    byebug    
     if spotify_user
       redirect_to welcome_path
     else
@@ -13,6 +13,6 @@ class UsersController < ApplicationController
 
   end
   def home
-    
+    byebug    
   end
 end
