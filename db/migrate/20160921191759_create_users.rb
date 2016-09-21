@@ -7,7 +7,6 @@ class CreateUsers < ActiveRecord::Migration
       t.string :email
       t.string :top_tracks
       t.string :top_artists
-      t.string :hash
 
       t.timestamps null: false
     end
