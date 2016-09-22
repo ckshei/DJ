@@ -1,3 +1,9 @@
 <h1>Event#show</h1>
 <%= @event.date %>
 <%= @event.name %>
+<% @event.guests.each do |guest| %>
+  <%= guest.display_name %>
+<% end %>
+
+<%= link_to("RSVP", :controller => :events, :action => :guest) %>
+

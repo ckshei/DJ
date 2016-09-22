@@ -6,3 +6,9 @@ Date: <%= f.date_field :date %>
 <%= f.hidden_field :host_id, :value=>@current_user.id %>
 <%= f.submit %>
 <% end %>
+
+Events:
+<% current_user.reservations.each do |event| %>
+<%= event.name %>
+<%= event.date %>
+<% end %>
