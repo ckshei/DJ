@@ -1,9 +1,10 @@
-class EventController < ApplicationController
+class EventsController < ApplicationController
   def new
   end
 
   def create
     @event = Event.create(event_params)
+    redirect_to event_path(@event) 
   end
 
   def edit
@@ -16,6 +17,7 @@ class EventController < ApplicationController
   end
 
   def show
+    @event = Event.find(params[:id])
   end
 
   def destroy
