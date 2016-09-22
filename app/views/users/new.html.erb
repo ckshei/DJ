@@ -1,3 +1,11 @@
 <%= link_to 'Sign in with Spotify', '/auth/spotify' %>
 <%= flash[:error] %>
 Hello New User Sign in 
+<%= form_for @user do |f| %>
+Spotify ID  <%= f.number_field :uid  %>
+Name  <%= f.text_field :display_name %>
+Password:  <%= f.text_field :password %>
+Email: <%= f.text_field :email %>
+<%= f.submit %>
+<% end %>
+
