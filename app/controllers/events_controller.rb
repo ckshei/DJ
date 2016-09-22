@@ -5,6 +5,7 @@ class EventsController < ApplicationController
   def create
     @event = Event.create(event_params)
     @event.guests << current_user
+    @event.create_playlist
     @event.save
     redirect_to event_path(@event) 
   end

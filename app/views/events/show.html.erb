@@ -4,6 +4,6 @@
 <% @event.guests.each do |guest| %>
   <%= guest.display_name %>
 <% end %>
-
+<%= @event.playlist %>
 <%= link_to("RSVP", :controller => :events, :action => :guest) %>
 
