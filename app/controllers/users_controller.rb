@@ -4,8 +4,9 @@ class UsersController < ApplicationController
   end
   def spotify
     spotify_user = RSpotify::User.new(request.env['omniauth.auth'])
-    byebug    
-    if spotify_user
+    user = UserAdapter.create(spotify_user)
+    if user
+      session[:user_id] = user.id
       redirect_to welcome_path
     else
       flash[:error] = 'You fucked up'
@@ -13,6 +14,7 @@ class UsersController < ApplicationController
 
   end
   def home
-    byebug    
+    current_user
+    @event = Event.new
   end
 end
