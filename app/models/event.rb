@@ -11,4 +11,11 @@ class Event < ActiveRecord::Base
     self.playlist = playlist.external_urls["spotify"]
   end
 
+  def add_songs(user)
+    host_id = self.playlist.match(/ser\/(\d*)\/pl/)[1]
+    playlist_id = self.playlist.match(/list\/(\w*)\Z/)[1]
+    byebug
+    # playlist.add_tracks!(user.top_tracks(limit:5))
+  end
+
 end

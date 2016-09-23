@@ -3,7 +3,10 @@ class User < ActiveRecord::Base
   serialize :top_tracks, Array
   serialize :top_artists, Array
 
-  has_secure_password
+  has_secure_password validations: false
+
+  has_many :songs
+  accepts_nested_attributes_for :songs
   #for host
   has_many :events, :foreign_key => 'host_id'
   has_many :guests, through: :events 
@@ -11,4 +14,9 @@ class User < ActiveRecord::Base
   has_many :event_guests, :foreign_key => "guest_id"
   has_many :reservations, through: :event_guests, :source =>"event"
 
+  validates :password, presence:true, unless: :has_uid
+
+  def has_uid
+    self.uid?
+  end
 end

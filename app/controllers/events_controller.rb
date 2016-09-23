@@ -17,6 +17,7 @@ class EventsController < ApplicationController
   end
 
   def index
+    @events = Event.all
   end
 
   def show
@@ -29,11 +30,14 @@ class EventsController < ApplicationController
   def guest
     event = Event.find(params[:id])
     current_user
+    byebug
     if event.guests.include?(@current_user)
       redirect_to event_path(event)
     else
-      event.guests << user
+      event.guests << @current_user
       event.save
+      byebug
+      event.add_songs(@current_user)
       redirect_to event_path(event)
     end    
   end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160922184910) do
+ActiveRecord::Schema.define(version: 20160923144158) do
 
   create_table "event_guests", force: :cascade do |t|
     t.integer  "event_id"
@@ -29,15 +29,22 @@ ActiveRecord::Schema.define(version: 20160922184910) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "songs", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "users", force: :cascade do |t|
-    t.integer  "uid"
+    t.integer  "uid",             limit: 8
     t.string   "display_name"
     t.string   "password_digest"
     t.string   "email"
     t.string   "top_tracks"
     t.string   "top_artists"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
     t.text     "spotify_hash"
   end
 
