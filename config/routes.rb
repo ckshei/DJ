@@ -5,5 +5,6 @@ Rails.application.routes.draw do
   resources :users
   resources :events do
     get 'guest', on: :member
+    get 'refresh_playlist', on: :member
   end
 end

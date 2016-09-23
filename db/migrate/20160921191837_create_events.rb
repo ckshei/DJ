@@ -3,7 +3,6 @@ class CreateEvents < ActiveRecord::Migration
     create_table :events do |t|
       t.string :name
       t.date :date
-      t.string :playlist
       t.integer :host_id
 
       t.timestamps null: false
