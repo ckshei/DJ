@@ -1,12 +1,18 @@
+<h1>Welcome to DJTTP</h1>
 <%= link_to 'Sign in with Spotify', '/auth/spotify' %>
 <%= flash[:error] %>
-Hello New User Sign in
+<br>
+<br>
 Create a Guest Account
 <%= form_for @user do |f| %>
-Spotify ID  <%= f.number_field :uid  %>
+<% if @user.errors.any? %>
+  <% @user.errors.full_messages.each do |message| %>
+    <li><%= message %></li>
+  <% end %>
+<% end %>
 Name  <%= f.text_field :display_name %>
-Password:  <%= f.text_field :password %>
-Email: <%= f.text_field :email %>
+Password:  <%= f.password_field :password %>
+Email: <%= f.email_field :email %>
 Favorite Songs: <%= f.fields_for :songs do |s| %>
 <%= s.text_field :name %>
 <% end %>

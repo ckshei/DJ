@@ -3,6 +3,7 @@ class Event < ActiveRecord::Base
   has_one :playlist
   has_many :event_guests
   has_many :guests, through: :event_guests, :class_name => "User"
+  scope :expired, -> { where('date < ?', Date.today) }
 
   def create_playlist
     hash = self.host.spotify_hash
@@ -30,5 +31,4 @@ class Event < ActiveRecord::Base
       playlist.save
     end
   end
-
 end

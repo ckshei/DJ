@@ -21,10 +21,14 @@ class UsersController < ApplicationController
     @event = Event.new
   end
   def create
-    user = User.create(user_params)
-    UserAdapter.top_tracks(user)
-    session[:user_id] = user.id
-    redirect_to welcome_path
+    @user = User.create(user_params)
+    if @user.save
+      UserAdapter.top_tracks(@user)
+      session[:user_id] = @user.id
+      redirect_to welcome_path
+    else
+      render :new 
+    end
   end
   
   def user_params

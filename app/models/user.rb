@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
   has_secure_password validations: false
 
   has_many :songs
-  accepts_nested_attributes_for :songs
+  accepts_nested_attributes_for :songs, reject_if: proc { |attributes| attributes['name'].blank? }
   #for host
   has_many :events, :foreign_key => 'host_id'
   has_many :guests, through: :events 
@@ -14,7 +14,9 @@ class User < ActiveRecord::Base
   has_many :event_guests, :foreign_key => "guest_id"
   has_many :reservations, through: :event_guests, :source =>"event"
 
-  validates :password, presence:true, unless: :has_uid
+  validates :password, presence:true, length: {minimum: 6}, unless: :has_uid
+  validates :display_name, presence:true
+  validates :email, presence:true
 
   def has_uid
     self.uid?
