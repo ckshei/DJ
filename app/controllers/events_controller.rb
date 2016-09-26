@@ -46,16 +46,7 @@ class EventsController < ApplicationController
 
   def refresh_playlist
     event = Event.find(params[:id])
-    playlist = event.playlist
-    add_array = playlist.add_songs
-    spotify_playlist = RSpotify::Playlist.find(playlist.host_id.to_s, playlist.playlist_id)
-    add_tracks = []
-    add_array.each do |id|
-      add_tracks << RSpotify::Track.find(id)
-    end
-    playlist.add_songs.clear
-    playlist.save
-    spotify_playlist.add_tracks!(add_tracks)
+    event.refresh_playlist
     redirect_to event_path(event)
   end
   private
