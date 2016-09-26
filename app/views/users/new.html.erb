@@ -1,6 +1,7 @@
 <h1>Welcome to DJTTP</h1>
 <%= link_to 'Sign in with Spotify', '/auth/spotify' %>
 <%= flash[:error] %>
+<%= flash[:notice] %>
 <br>
 <br>
 Create a Guest Account
@@ -12,7 +13,6 @@ Create a Guest Account
 <% end %>
 Name  <%= f.text_field :display_name %>
 Password:  <%= f.password_field :password %>
-Password Confirmation: <%= f.password_field :password_confirmation %>
 Email: <%= f.email_field :email %>
 Favorite Songs: <%= f.fields_for :songs do |s| %>
 <%= s.text_field :name %>

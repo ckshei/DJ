@@ -3,7 +3,7 @@ class EventsController < ApplicationController
   end
 
   def create
-    @event = Event.create(event_params)
+    @event = Event.create(event_params(:name, :date, :host_id))
     @event.guests << current_user
     @event.create_playlist
     @event.save
@@ -11,9 +11,13 @@ class EventsController < ApplicationController
   end
 
   def edit
+    @event = Event.find(params[:id])
   end
 
   def update
+    @event = Event.find(params[:id])
+    @event.update(event_params(:date))
+    redirect_to event_path(@event)
   end
 
   def index
@@ -56,7 +60,7 @@ class EventsController < ApplicationController
   end
   private
 
-  def event_params
-    params.require(:event).permit(:name, :date, :host_id)
+  def event_params(*args)
+    params.require(:event).permit(*args)
   end
 end

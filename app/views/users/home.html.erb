@@ -1,16 +1,24 @@
 <%= current_user.display_name %>
-hey you're home
+<% if current_user.uid? %>
 <%= form_for @event do |f| %>
 Name: <%= f.text_field :name %>
 Date: <%= f.date_field :date %>
 <%= f.hidden_field :host_id, :value=>@current_user.id %>
 <%= f.submit %>
 <% end %>
-
-Events:
-<% current_user.reservations.each do |event| %>
-<%= event.name %>
-<%= event.date %>
+<% else %>
+  <br>
+  <br>
+  As a guest, you cannot host any events. Click <%= link_to("All Events", events_path) %> to RSVP for your first event. Otherwise create an account with spotify to host an event.
 <% end %>
 
-<%= link_to("favorite songs", user_songs_path(@current_user)) %>
+<% current_user.reservations.each do |event| %>
+Name:<%=link_to(event.name, event_path(event)) %>
+<br>
+Date:<%= event.date %>
+<br>
+<%= link_to("edit", edit_event_path(event)) %>
+<br>
+<br>
+<% end %>
+

@@ -1,10 +1,14 @@
 class UsersController < ApplicationController
-  skip_before_action :require_login, only: [:new]
+  skip_before_action :require_login, only: [:new, :spotify, :create, :login]
   def new
-    @user = User.new
-    @user.songs.build
-    @user.songs.build
-    @user.songs.build
+    if current_user
+      redirect_to welcome_path
+    else
+      @user = User.new
+      @user.songs.build
+      @user.songs.build
+      @user.songs.build
+    end
   end
   def spotify
     spotify_user = RSpotify::User.new(request.env['omniauth.auth'])
@@ -33,14 +37,19 @@ class UsersController < ApplicationController
   end
 
   def login
-    @user = User.find_by(display_name: params[:user][:display_name])
-    return head(:forbidden) unless @user.authenticate(params[:password])
-    session[:user_id] = @user.id
-    redirect_to welcome_path
+    return redirect_to root_path, notice: "Cannot find username #{params[:user][:display_name]}" unless @user = User.find_by(display_name: params[:user][:display_name])
+    if @user.authenticate(params[:user][:password])
+      session[:user_id] = @user.id
+      redirect_to welcome_path
+    else
+      flash[:notice] = "Password is incorrect" 
+      redirect_to root_path
+    end
   end
 
   def logout
-    session.delete :user_id
+    session[:user_id] = nil
+    redirect_to root_path
   end
   
   def user_params
