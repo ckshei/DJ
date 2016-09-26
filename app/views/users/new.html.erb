@@ -12,10 +12,17 @@ Create a Guest Account
 <% end %>
 Name  <%= f.text_field :display_name %>
 Password:  <%= f.password_field :password %>
+Password Confirmation: <%= f.password_field :password_confirmation %>
 Email: <%= f.email_field :email %>
 Favorite Songs: <%= f.fields_for :songs do |s| %>
 <%= s.text_field :name %>
 <% end %>
 <%= f.submit %>
 <% end %>
-
+<br>
+Sign In 
+<%= form_for :user, url: {controller: "users", action: "login", method: "post"} do |f|%>
+Name:  <%= f.text_field :display_name %>
+Password:  <%= f.password_field :password %>
+<%= f.submit "Login" %>
+<% end %>

@@ -10,7 +10,7 @@ class SongsController < ApplicationController
 
   def create
     @song = Song.create(song_params)
-    redirect_to user_songs 
+    redirect_to user_songs_path(current_user)
   end
 
   private
